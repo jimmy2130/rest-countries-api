@@ -5,19 +5,24 @@ import { Outlet } from 'react-router-dom';
 
 const App = () => {
   return (
-  	<>
-  		<Header/>
-  		<Layout>
-  			<Outlet/>
-  		</Layout>
-  	</>
+  	<Wrapper>
+	  	<Header/>
+  		<MaxWidthWrapper>
+	  		<Outlet/>
+  		</MaxWidthWrapper>
+  	</Wrapper>
   );
 };
 
-const Layout = styled.main`
+const Wrapper = styled.div`
 	height: 100%;
-	padding: 128px 80px 48px 80px;
 	background: var(--color-light-background);
+`
+
+const MaxWidthWrapper = styled.div`
+	max-width: 1600px;
+	margin-left: auto;
+	margin-right: auto;
 `
 
 export default App;
