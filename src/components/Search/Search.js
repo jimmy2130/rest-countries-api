@@ -2,11 +2,14 @@ import React from "react";
 import styled from 'styled-components/macro';
 import { useSubmit } from 'react-router-dom';
 import { SearchIcon } from '../../svg';
+import { QUERIES } from '../../constants'
+import VisuallyHidden from '../VisuallyHidden';
 
 const Search = ({ q }) => {
 	const submit = useSubmit()
   return (
 		<Wrapper htmlFor="search">
+			<VisuallyHidden>Search countries</VisuallyHidden>
 			<IconWrapper>
 				<SearchIcon/>
 			</IconWrapper>
@@ -15,6 +18,7 @@ const Search = ({ q }) => {
 				type="search"
 				name="q"
 				placeholder="Search for a country..."
+				defaultValue={q}
 				onChange={(e) => {
 					const isFirstSearch = q === null || q === ""
 					submit(e.currentTarget.form, {
@@ -27,12 +31,18 @@ const Search = ({ q }) => {
 };
 
 const Wrapper = styled.label`
+	flex: 1;
 	position: relative;
-	width: 100%;
 	max-width: 480px;
 	height: 56px;	
 	display: flex;
 	align-items: center;
+
+	@media ${QUERIES.phoneAndDown} {
+		flex: revert;
+		height: 48px;
+		max-width: revert;
+	}
 `
 
 const IconWrapper = styled.span`
@@ -49,13 +59,22 @@ const IconWrapper = styled.span`
 const Input = styled.input`
 	width: 100%;
 	height: 100%;
-	padding: 18px 32px 18px 74px;
-	background: var(--color-light-elements);
+	padding: 18px 18px 18px 74px;
+	background: var(--color-elements);
 	box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
 	border: none;
 	border-radius: 5px;
-	color: var(--color-light-input);
+	color: var(--color-input);
 	font-size: calc(14 / 16 * 1rem);
+
+	&::placeholder {
+	  color: var(--color-input);
+	  opacity: 1; /* Firefox */
+	}
+
+	@media ${QUERIES.phoneAndDown} {
+		font-size: calc(12 / 16 * 1rem);
+	}
 `
 
 export default Search;

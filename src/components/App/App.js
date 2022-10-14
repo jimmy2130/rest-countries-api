@@ -16,7 +16,7 @@ const App = () => {
 
 const Wrapper = styled.div`
 	height: 100%;
-	background: var(--color-light-background);
+	background: var(--color-background);
 `
 
 const MaxWidthWrapper = styled.div`

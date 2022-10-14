@@ -1,9 +1,10 @@
 import React from "react";
 import styled from 'styled-components/macro';
-import { useLoaderData, Link } from 'react-router-dom';
+import { useLoaderData, useSearchParams, Link } from 'react-router-dom';
 import { ArrowLeft } from '../../svg'
 import { findCountry, findBorders } from './CountryDetail.helpers'
 import { fetchData } from '../../helpers/fetch-data.helpers'
+import { QUERIES } from '../../constants'
 
 export function detailLoader(queryClient) {
 	return async function fetchDetail({ params }) {
@@ -45,6 +46,10 @@ export function detailLoader(queryClient) {
 
 const CountryDetail = () => {
 	const {detail: data, borders} = useLoaderData()
+	const [searchParams] = useSearchParams()
+	const q = searchParams.get("q") ?? ""
+	const filter = searchParams.get("filter") ?? ""
+	const link = `/?q=${q}&filter=${filter}`
 	// console.log(borders)
 	const leftCol = {
 		'Native Name:': Object.values(data[0].name.nativeName).map(n => n.common).join(', '),
@@ -60,7 +65,7 @@ const CountryDetail = () => {
 	}
   return (
   	<Wrapper>
-  		<BackLink to="/">
+  		<BackLink to={link}>
   			<ArrowLeft/>
   			<BackLinkText>Back</BackLinkText>
   		</BackLink>
@@ -86,7 +91,7 @@ const CountryDetail = () => {
 		  			{borders.length > 0 && <Label>Border Countries:</Label>}
 		  			<LinkGroup>
 		  			{
-		  				 borders.map(c => <StyledLink to={`/${c.cca3.toLowerCase()}`} key={c.cca3}>{c.name}</StyledLink>)
+		  				 borders.map(c => <StyledLink to={`/${c.cca3.toLowerCase()}${link}`} key={c.cca3}>{c.name}</StyledLink>)
 		  			}
 		  			</LinkGroup>
 		  		</BorderGroup>
@@ -98,14 +103,21 @@ const CountryDetail = () => {
 
 const Wrapper = styled.main`
 	padding: 160px 80px 48px 80px;
-	background: var(--color-light-background);
+	background: var(--color-background);
+
+	@media ${QUERIES.phoneAndDown} {
+		padding-top: 120px;
+		padding-left: 28px;
+		padding-right: 28px;
+		padding-bottom: 60px;
+	}
 `
 
 const BackLink = styled(Link)`
 	width: 136px;
 	height: 40px;
-	margin-bottom: 64px;
-	background: var(--color-light-elements);
+	margin-bottom: 80px;
+	background: var(--color-elements);
 	text-decoration: none;
 	box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.293139);
 	border-radius: 6px;
@@ -113,12 +125,16 @@ const BackLink = styled(Link)`
 	justify-content: center;
 	align-items: center;
 	gap: 8px;
+
+	@media ${QUERIES.tabletAndDown} {
+		margin-bottom: 64px;
+	}
 `
 
 const BackLinkText = styled.span`
 	font-size: calc(14 / 16 * 1rem);
 	font-weight: 300;
-	color: var(--color-light-text);
+	color: var(--color-text);
 `
 
 const ContentWrapper = styled.div`
@@ -126,11 +142,24 @@ const ContentWrapper = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	gap: 52px;
+
+	@media ${QUERIES.tabletAndDown} {
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: stretch;
+		gap: 44px;
+	}
 `
 
 const FlagWrapper = styled.div`
 	max-width: 560px;
-	flex: 1;
+	flex: 99999;
+	// border: 1px solid red;
+
+	@media ${QUERIES.tabletAndDown} {
+		max-width: 574px;
+		flex: 1;
+	}
 `
 
 const Flag = styled.img`
@@ -142,29 +171,52 @@ const Flag = styled.img`
 `
 
 const Content = styled.div`
-	flex-basis: 574px;
+	max-width: 574px;
+	min-width: 460px;
+	flex: 1;
+	// border: 1px solid;
+
+	@media ${QUERIES.phoneAndDown} {
+		min-width: revert;
+	}
 `
 
 const Title = styled.h2`
 	font-size: calc(32 / 16 * 1rem);
-	color: var(--color-light-text);
+	color: var(--color-text);
 	font-weight: 800;
 	margin-bottom: 24px;
+
+	@media ${QUERIES.phoneAndDown} {
+		margin-bottom: 16px;
+		font-size: calc(22 / 16 * 1rem);
+	}
 `
 
 const ColGroup = styled.div`
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 68px;
+
+	@media ${QUERIES.phoneAndDown} {
+		flex-direction: column;
+		justify-content: flex-start;
+		gap: 32px;
+		margin-bottom: 32px;
+	}
 `
 
 const Column = styled.ul`
 	font-size: calc(16 / 16 * 1rem);
+
+	@media ${QUERIES.phoneAndDown} {
+		font-size: calc(14 / 16 * 1rem);
+	}
 `
 
 const Info = styled.li`
 	font-weight: 600;
-	color: var(--color-light-text);
+	color: var(--color-text);
 	line-height: 32px;
 `
 
@@ -175,14 +227,19 @@ const Value = styled.span`
 const BorderGroup = styled.div`
 	display: flex;
 	align-items: baseline;
-	gap: 15px;
+	gap: 16px;
+
+	@media ${QUERIES.phoneAndDown} {
+		flex-direction: column;
+		align-items: stretch;
+	}
 `
 
 const Label = styled.div`
 	min-width: max-content;
 	font-size: calc(16 / 16 * 1rem);
 	font-weight: 600;
-	color: var(--color-light-text);
+	color: var(--color-text);
 `
 
 const LinkGroup = styled.div`
@@ -198,13 +255,17 @@ const StyledLink = styled(Link)`
 	padding-right: 8px;
 	display: grid;
 	place-content: center;
-	background: var(--color-light-elements);
+	background: var(--color-elements);
 	box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.104931);
 	border-radius: 2px;
 	font-size: calc(14 / 16 * 1rem);
 	font-weight: 300;
-	color: var(--color-light-text);
+	color: var(--color-text);
 	text-decoration: none;
+
+	@media ${QUERIES.phoneAndDown} {
+		font-size: calc(12 / 16 * 1rem);
+	}
 `
 
 export default CountryDetail;

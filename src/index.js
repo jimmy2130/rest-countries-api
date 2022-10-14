@@ -11,7 +11,8 @@ import {
 	Route,
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { setColor } from './helpers/set-color.helpers'
 
 const queryClient = new QueryClient()
 
@@ -26,6 +27,8 @@ const router = createBrowserRouter(
 						<GlobalStyles/>
 					</>
 				}
+				errorElement={<p>Error!!!</p>}
+				loader={setColor}
 			>
 				<Route
 					index
@@ -48,7 +51,7 @@ root.render(
   <React.StrictMode>
   	<QueryClientProvider client={queryClient}>
   		<RouterProvider router={router}/>
-  		<ReactQueryDevtools position="bottom-right" />
+  		{/*<ReactQueryDevtools position="bottom-right" />*/}
   	</QueryClientProvider>
   </React.StrictMode>
 );

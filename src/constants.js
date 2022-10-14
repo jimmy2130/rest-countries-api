@@ -1,17 +1,21 @@
 export const COLORS = {
-	darkModeElements: 'hsl(209deg 23% 22%)',
-	darkModeBackground: 'hsl(207deg 26% 17%)',
-	darkModeText: 'hsl(0deg 0% 100%)',
-	darkModeInput: 'hsl(0deg 0% 100%)',
-	lightModeElements: 'hsl(0deg 0% 100%)',
-	lightModeBackground: 'hsl(0deg 0% 98%)',
-	lightModeText: 'hsl(200deg 15% 8%)',
-	lightModeInput: 'hsl(0deg 0% 52%)',
+	light: {
+		elements: 'hsl(0deg 0% 100%)',
+		background: 'hsl(0deg 0% 98%)',
+		text: 'hsl(200deg 15% 8%)',
+		input: 'hsl(0deg 0% 52%)',
+	},
+	dark: {
+		elements: 'hsl(209deg 23% 22%)',
+		background: 'hsl(207deg 26% 17%)',
+		text: 'hsl(0deg 0% 100%)',
+		input: 'hsl(0deg 0% 100%)',
+	}
 };
 
 export const BREAKPOINTS = {
-	tabletMax: 768,
-  phoneMax: 587,
+	tabletMax: 1000,
+  phoneMax: 600,
 };
 
 export const QUERIES = {

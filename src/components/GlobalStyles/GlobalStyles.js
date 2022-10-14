@@ -71,14 +71,10 @@ table {
 // }
 
 html {
-	--color-dark-elements: ${COLORS.darkModeElements};
-	--color-dark-background: ${COLORS.darkModeBackground};
-	--color-dark-text: ${COLORS.darkModeText};
-	--color-dark-input: ${COLORS.darkModeInput};
-	--color-light-elements: ${COLORS.lightModeElements};
-	--color-light-background: ${COLORS.lightModeBackground};
-	--color-light-text: ${COLORS.lightModeText};
-	--color-light-input: ${COLORS.lightModeInput};
+	--color-elements: ${COLORS.light.elements};
+	--color-background: ${COLORS.light.background};
+	--color-text: ${COLORS.light.text};
+	--color-input: ${COLORS.light.input};
 }
 
 body {
