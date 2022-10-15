@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App';
+import ErrorPage from './components/ErrorPage';
 import CountryIndex, { countriesLoader } from './components/CountryIndex'
 import CountryDetail, { detailLoader } from './components/CountryDetail'
 import GlobalStyles from './components/GlobalStyles'
@@ -9,6 +10,7 @@ import {
 	createRoutesFromElements,
 	RouterProvider,
 	Route,
+	ScrollRestoration
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -25,9 +27,21 @@ const router = createBrowserRouter(
 					<>
 						<App/>
 						<GlobalStyles/>
+						<ScrollRestoration
+							getKey={(location, matches) => {
+								if(location.pathname === '/' && location.state === null)
+									return location.pathname
+								return location.key
+							}}
+						/>
 					</>
 				}
-				errorElement={<p>Error!!!</p>}
+				errorElement={
+					<>
+						<ErrorPage/>
+						<GlobalStyles/>
+					</>
+				}
 				loader={setColor}
 			>
 				<Route

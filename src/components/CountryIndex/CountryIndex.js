@@ -42,7 +42,6 @@ const CountryIndex = () => {
 	const q = searchParams.get("q") ?? ""
 	const filter = searchParams.get("filter") ?? ""
 	const data = useLoaderData()
-
 	useEffect(() => {
 		document.getElementById("search").value = q
 		document.getElementById("filter").value = filter
@@ -52,7 +51,7 @@ const CountryIndex = () => {
   	<Wrapper>
   		<UserInput>
   			<Search q={q}/>
-  			<Select/>
+  			<Select filter={filter}/>
   		</UserInput>
   		<React.Suspense fallback={<LoadingText>loading...</LoadingText>}>
   			<Await
@@ -64,11 +63,11 @@ const CountryIndex = () => {
   						return (
 						  	<CardsGrid>
 						  	{
-						  		countries?.map((country) => (
+						  		countries.length > 0 ? countries?.map((country) => (
 						  			<React.Fragment key={country.name.common}>
 						  				<Card country={country}/>
 						  			</React.Fragment>
-						  		))
+						  		)) : <p style={{color: 'var(--color-text)'}}>No countries found</p>
 						  	}
 						  	</CardsGrid>
 					  	)
@@ -116,10 +115,6 @@ const CardsGrid = styled.ul`
 	gap: 75px;
 
 	@media ${QUERIES.phoneAndDown} {
-		display: flex;
-		flex-direction: column;
-		justify-content: stretch;
-		align-items: center;
 		gap: 40px;
 	}
 `

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from 'styled-components/macro';
 import { Link, useSearchParams } from 'react-router-dom';
-import { QUERIES } from '../../constants';
 
 const Card = ({ country }) => {
 	const [searchParams] = useSearchParams()
@@ -47,10 +46,6 @@ const InfoWrapper = styled.div`
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 	background: var(--color-elements);
-
-	@media ${QUERIES.phoneAndDown} {
-		height: revert;
-	}
 `
 
 const CountryName = styled.h2`
@@ -61,12 +56,6 @@ const CountryName = styled.h2`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-
-  @media ${QUERIES.phoneAndDown} {
-  	overflow: revert;
-  	white-space: revert;
-  	text-overflow: revert;
-  }
 `
 
 const Description = styled.h3`

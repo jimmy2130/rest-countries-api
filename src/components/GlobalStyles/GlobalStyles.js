@@ -84,6 +84,12 @@ body {
 html, body, #root {
   height: 100%;
 }
+
+input[type="search"]::-webkit-search-cancel-button {
+	appearance: none;
+}
+
+
 `;
 
 export default GlobalStyles;

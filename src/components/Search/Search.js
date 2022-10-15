@@ -18,7 +18,7 @@ const Search = ({ q }) => {
 				type="search"
 				name="q"
 				placeholder="Search for a country..."
-				defaultValue={q}
+				value={q}
 				onChange={(e) => {
 					const isFirstSearch = q === null || q === ""
 					submit(e.currentTarget.form, {
@@ -64,11 +64,11 @@ const Input = styled.input`
 	box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
 	border: none;
 	border-radius: 5px;
-	color: var(--color-input);
+	color: var(--color-text);
 	font-size: calc(14 / 16 * 1rem);
 
 	&::placeholder {
-	  color: var(--color-input);
+	  color: var(--color-text);
 	  opacity: 1; /* Firefox */
 	}
 

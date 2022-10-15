@@ -33,7 +33,11 @@ const Header = () => {
   return (
   	<TopBar>
   		<MaxWidthWrapper>
-	  		<Title><NavLink to="/">Where in the world?</NavLink></Title>
+	  		<Title>
+	  			<NavLink to="/" state={{ scrollToTop: true }}>
+	  				Where in the world?
+	  			</NavLink>
+	  		</Title>
 	  		<StyledButton
 	  			type="button"
 	  			onClick={handleClick}
